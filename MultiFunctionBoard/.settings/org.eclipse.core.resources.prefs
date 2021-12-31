@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//Debug/Main\ Library/BoardAL/Communication/ESP8266/subdir_rules.mk=UTF-8
+encoding//Debug/Main\ Library/BoardAL/Communication/ESP8266/subdir_vars.mk=UTF-8
 encoding//Debug/Main\ Library/BoardAL/IO/IOHWAB/subdir_rules.mk=UTF-8
 encoding//Debug/Main\ Library/BoardAL/IO/IOHWAB/subdir_vars.mk=UTF-8
 encoding//Debug/Main\ Library/BoardAL/IO/TOUCH/subdir_rules.mk=UTF-8
@@ -7,6 +9,8 @@ encoding//Debug/Main\ Library/BoardAL/Onboard/MPU/subdir_rules.mk=UTF-8
 encoding//Debug/Main\ Library/BoardAL/Onboard/MPU/subdir_vars.mk=UTF-8
 encoding//Debug/Main\ Library/Compiler/subdir_rules.mk=UTF-8
 encoding//Debug/Main\ Library/Compiler/subdir_vars.mk=UTF-8
+encoding//Debug/Main\ Library/Environment/subdir_rules.mk=UTF-8
+encoding//Debug/Main\ Library/Environment/subdir_vars.mk=UTF-8
 encoding//Debug/Main\ Library/MCAL/IO/Port/subdir_rules.mk=UTF-8
 encoding//Debug/Main\ Library/MCAL/IO/Port/subdir_vars.mk=UTF-8
 encoding//Debug/Main\ Library/OS/subdir_rules.mk=UTF-8

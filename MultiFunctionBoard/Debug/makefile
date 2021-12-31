@@ -11,20 +11,21 @@ GEN_CMDS__FLAG := -l"configPkg/linker.cmd"
 
 ORDERED_OBJS += \
 "./main.obj" \
+"./Main Library/BoardAL/Communication/ESP8266/ESP8266_MAIN.obj" \
 "./Main Library/BoardAL/IO/IOHWAB/IOHWAB_DIGITAL.obj" \
-"./Main Library/BoardAL/IO/TOUCH/TOUCH_CORE.obj" \
-"./Main Library/BoardAL/IO/TOUCH/TOUCH_OS.obj" \
-"./Main Library/BoardAL/Onboard/MPU/MPU_CORE.obj" \
-"./Main Library/BoardAL/Onboard/MPU/MPU_OS.obj" \
-"./Main Library/Compiler/COMPILER_EXT.obj" \
-"./Main Library/Compiler/I2C.obj" \
-"./Main Library/Compiler/I2CTiva.obj" \
-"./Main Library/Compiler/UTILITY.obj" \
+"./Main Library/BoardAL/IO/TOUCH/TOUCH_MAIN.obj" \
+"./Main Library/BoardAL/Onboard/MPU/MPU_MAIN.obj" \
+"./Main Library/Environment/I2C.obj" \
+"./Main Library/Environment/I2CTiva.obj" \
+"./Main Library/Environment/RingBuf.obj" \
+"./Main Library/Environment/UART.obj" \
+"./Main Library/Environment/UARTTiva.obj" \
+"./Main Library/Environment/UTILITY.obj" \
+"./Main Library/Environment/uartstdio.obj" \
 "./Main Library/MCAL/IO/Port/PORT_CORE.obj" \
 "./Main Library/OS/OS.obj" \
 "./Main Library/ServiceLayer/DEM/DEM_CORE.obj" \
 "./Main Library/ServiceLayer/DEM/DEM_OS.obj" \
-"./Main Library/Verbose/Verbose.obj" \
 "../tm4c123gh6pm.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -39,23 +40,23 @@ RMDIR := RMDIR /S/Q
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include Main\ Library/BoardAL/Communication/ESP8266/subdir_vars.mk
 -include Main\ Library/BoardAL/IO/IOHWAB/subdir_vars.mk
 -include Main\ Library/BoardAL/IO/TOUCH/subdir_vars.mk
 -include Main\ Library/BoardAL/Onboard/MPU/subdir_vars.mk
--include Main\ Library/Compiler/subdir_vars.mk
+-include Main\ Library/Environment/subdir_vars.mk
 -include Main\ Library/MCAL/IO/Port/subdir_vars.mk
 -include Main\ Library/OS/subdir_vars.mk
 -include Main\ Library/ServiceLayer/DEM/subdir_vars.mk
--include Main\ Library/Verbose/subdir_vars.mk
 -include subdir_rules.mk
+-include Main\ Library/BoardAL/Communication/ESP8266/subdir_rules.mk
 -include Main\ Library/BoardAL/IO/IOHWAB/subdir_rules.mk
 -include Main\ Library/BoardAL/IO/TOUCH/subdir_rules.mk
 -include Main\ Library/BoardAL/Onboard/MPU/subdir_rules.mk
--include Main\ Library/Compiler/subdir_rules.mk
+-include Main\ Library/Environment/subdir_rules.mk
 -include Main\ Library/MCAL/IO/Port/subdir_rules.mk
 -include Main\ Library/OS/subdir_rules.mk
 -include Main\ Library/ServiceLayer/DEM/subdir_rules.mk
--include Main\ Library/Verbose/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -186,8 +187,8 @@ MultiFunctionBoard.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(GEN_FILES__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main.obj" "Main Library\BoardAL\IO\IOHWAB\IOHWAB_DIGITAL.obj" "Main Library\BoardAL\IO\TOUCH\TOUCH_CORE.obj" "Main Library\BoardAL\IO\TOUCH\TOUCH_OS.obj" "Main Library\BoardAL\Onboard\MPU\MPU_CORE.obj" "Main Library\BoardAL\Onboard\MPU\MPU_OS.obj" "Main Library\Compiler\COMPILER_EXT.obj" "Main Library\Compiler\I2C.obj" "Main Library\Compiler\I2CTiva.obj" "Main Library\Compiler\UTILITY.obj" "Main Library\MCAL\IO\Port\PORT_CORE.obj" "Main Library\OS\OS.obj" "Main Library\ServiceLayer\DEM\DEM_CORE.obj" "Main Library\ServiceLayer\DEM\DEM_OS.obj" "Main Library\Verbose\Verbose.obj" 
-	-$(RM) "main.d" "Main Library\BoardAL\IO\IOHWAB\IOHWAB_DIGITAL.d" "Main Library\BoardAL\IO\TOUCH\TOUCH_CORE.d" "Main Library\BoardAL\IO\TOUCH\TOUCH_OS.d" "Main Library\BoardAL\Onboard\MPU\MPU_CORE.d" "Main Library\BoardAL\Onboard\MPU\MPU_OS.d" "Main Library\Compiler\COMPILER_EXT.d" "Main Library\Compiler\I2C.d" "Main Library\Compiler\I2CTiva.d" "Main Library\Compiler\UTILITY.d" "Main Library\MCAL\IO\Port\PORT_CORE.d" "Main Library\OS\OS.d" "Main Library\ServiceLayer\DEM\DEM_CORE.d" "Main Library\ServiceLayer\DEM\DEM_OS.d" "Main Library\Verbose\Verbose.d" 
+	-$(RM) "main.obj" "Main Library\BoardAL\Communication\ESP8266\ESP8266_MAIN.obj" "Main Library\BoardAL\IO\IOHWAB\IOHWAB_DIGITAL.obj" "Main Library\BoardAL\IO\TOUCH\TOUCH_MAIN.obj" "Main Library\BoardAL\Onboard\MPU\MPU_MAIN.obj" "Main Library\Environment\I2C.obj" "Main Library\Environment\I2CTiva.obj" "Main Library\Environment\RingBuf.obj" "Main Library\Environment\UART.obj" "Main Library\Environment\UARTTiva.obj" "Main Library\Environment\UTILITY.obj" "Main Library\Environment\uartstdio.obj" "Main Library\MCAL\IO\Port\PORT_CORE.obj" "Main Library\OS\OS.obj" "Main Library\ServiceLayer\DEM\DEM_CORE.obj" "Main Library\ServiceLayer\DEM\DEM_OS.obj" 
+	-$(RM) "main.d" "Main Library\BoardAL\Communication\ESP8266\ESP8266_MAIN.d" "Main Library\BoardAL\IO\IOHWAB\IOHWAB_DIGITAL.d" "Main Library\BoardAL\IO\TOUCH\TOUCH_MAIN.d" "Main Library\BoardAL\Onboard\MPU\MPU_MAIN.d" "Main Library\Environment\I2C.d" "Main Library\Environment\I2CTiva.d" "Main Library\Environment\RingBuf.d" "Main Library\Environment\UART.d" "Main Library\Environment\UARTTiva.d" "Main Library\Environment\UTILITY.d" "Main Library\Environment\uartstdio.d" "Main Library\MCAL\IO\Port\PORT_CORE.d" "Main Library\OS\OS.d" "Main Library\ServiceLayer\DEM\DEM_CORE.d" "Main Library\ServiceLayer\DEM\DEM_OS.d" 
 	-$(RMDIR) $(GEN_MISC_DIRS__QUOTED)
 	-@echo 'Finished clean'
 	-@echo ' '

@@ -6,27 +6,21 @@ SHELL = cmd.exe
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Main\ Library/BoardAL/IO/TOUCH/TOUCH_CORE.c \
-../Main\ Library/BoardAL/IO/TOUCH/TOUCH_OS.c 
+../Main\ Library/BoardAL/IO/TOUCH/TOUCH_MAIN.c 
 
 C_DEPS += \
-./Main\ Library/BoardAL/IO/TOUCH/TOUCH_CORE.d \
-./Main\ Library/BoardAL/IO/TOUCH/TOUCH_OS.d 
+./Main\ Library/BoardAL/IO/TOUCH/TOUCH_MAIN.d 
 
 OBJS += \
-./Main\ Library/BoardAL/IO/TOUCH/TOUCH_CORE.obj \
-./Main\ Library/BoardAL/IO/TOUCH/TOUCH_OS.obj 
+./Main\ Library/BoardAL/IO/TOUCH/TOUCH_MAIN.obj 
 
 OBJS__QUOTED += \
-"Main Library\BoardAL\IO\TOUCH\TOUCH_CORE.obj" \
-"Main Library\BoardAL\IO\TOUCH\TOUCH_OS.obj" 
+"Main Library\BoardAL\IO\TOUCH\TOUCH_MAIN.obj" 
 
 C_DEPS__QUOTED += \
-"Main Library\BoardAL\IO\TOUCH\TOUCH_CORE.d" \
-"Main Library\BoardAL\IO\TOUCH\TOUCH_OS.d" 
+"Main Library\BoardAL\IO\TOUCH\TOUCH_MAIN.d" 
 
 C_SRCS__QUOTED += \
-"../Main Library/BoardAL/IO/TOUCH/TOUCH_CORE.c" \
-"../Main Library/BoardAL/IO/TOUCH/TOUCH_OS.c" 
+"../Main Library/BoardAL/IO/TOUCH/TOUCH_MAIN.c" 
 
 

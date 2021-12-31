@@ -17,9 +17,8 @@
 *---------------------------------------------------------------------------------------------------------------
 *-----------------------------------------------------------------------------------------------------------------*
 */
+#include <Main Library/Environment/uartstdio.h>
 #include "PORT_CORE.h"
-
-
 /*
 *-----------------------------------------------------------------------------------------------------------------*
 *---------------------------------------------------------------------------------------------------------------
@@ -62,8 +61,11 @@
 *---------------------------------------------------------------------------------------------------------------
 *-----------------------------------------------------------------------------------------------------------------*
 */
+
+INT8U uartTivaRingBuffer[32];
 /* I2C objects */
-I2CTiva_Object   i2cTivaobjects[1];
+I2CTiva_Object   i2cTivaobjects;
+UARTTiva_Object  uartTivaobjects;
 SDSPITiva_Object sdspiTivaobjects;
 
 /* I2C configuration structure, describing which pins are to be used */
@@ -74,7 +76,14 @@ const I2CTiva_HWAttrs i2cTivaHWAttrs[] = {
         .intPriority = (~0)
     }
 };
-
+const UARTTiva_HWAttrs uartTivaHWAttrs= {
+                                         .baseAddr = UART1_BASE,
+                                         .intNum = INT_UART1,
+                                         .intPriority = (~0),
+                                         .flowControl = UART_FLOWCONTROL_NONE,
+                                         .ringBufPtr  = uartTivaRingBuffer,
+                                         .ringBufSize = sizeof(uartTivaRingBuffer)
+                                        };
 const SDSPITiva_HWAttrs sdspiTivaHWattrs = {
                                                 SSI1_BASE,          /* SPI base address */
                                                 GPIO_PORTD_BASE,    /* SPI SCK PORT */
@@ -87,13 +96,17 @@ const SDSPITiva_HWAttrs sdspiTivaHWattrs = {
                                                 GPIO_PIN_1,         /* CS PIN */
                                            };
 const SDSPI_Config SDSPI_config[] = {
-    {&SDSPITiva_fxnTable, &sdspiTivaobjects, &sdspiTivaHWattrs},
-    {STD_NULL, STD_NULL, STD_NULL}
-};
+                                     {&SDSPITiva_fxnTable, &sdspiTivaobjects, &sdspiTivaHWattrs},
+                                     {STD_NULL, STD_NULL, STD_NULL}
+                                    };
 const I2C_Config I2C_config[] = {
-    {&I2CTiva_fxnTable, &i2cTivaobjects[0], &i2cTivaHWAttrs[0]},
-    {STD_NULL, STD_NULL, STD_NULL}
-};
+                                 {&I2CTiva_fxnTable, &i2cTivaobjects, &i2cTivaHWAttrs},
+                                 {STD_NULL, STD_NULL, STD_NULL}
+                                };
+const UART_Config UART_config[] = {
+                                   {&UARTTiva_fxnTable, &uartTivaobjects, &uartTivaHWAttrs},
+                                   {STD_NULL, STD_NULL, STD_NULL}
+                                  };
 /*
 *-----------------------------------------------------------------------------------------------------------------*
 *---------------------------------------------------------------------------------------------------------------
@@ -104,6 +117,7 @@ const I2C_Config I2C_config[] = {
 static void PORT_vInitGeneralIOPort(void);
 static void PORT_vInitGPIO(void);
 static void PORT_vInitI2C(void);
+static void PORT_vInitUART(void);
 static void PORT_vInitSDCardPort(void);
 /*
 *-----------------------------------------------------------------------------------------------------------------*
@@ -121,20 +135,19 @@ INT32U PORT_u32ProcessorFrequency;
 *-----------------------------------------------------------------------------------------------------------------*
 */
 
-/* START FUNCTION DESCRIPTION ******************************************************************************************
-PORT_vInit                                           <PORT_CORE>
+/*-----------------------------------------------------------------------------------------------------------------------*/
 
-SYNTAX:         void PORT_vInit(void)
+/*! fn        void PORT_vInit(void)
 
-DESCRIPTION :   Start here
+@brief   None
 
-PARAMETER1  :   Start here
+@param[in]  :   None
 
-RETURN VALUE:   Start here
+@return   None
 
-Note        :   Start here
+@note        :   None
 
-END DESCRIPTION *******************************************************************************************************/
+-----------------------------------------------------------------------------------------------------------------------------*/
 void PORT_vInit(void)
 {
     Types_FreqHz strFrequencyHz;
@@ -144,24 +157,23 @@ void PORT_vInit(void)
     PORT_u32ProcessorFrequency = strFrequencyHz.lo;
     PORT_vInitGeneralIOPort();
     PORT_vInitGPIO();
+    PORT_vInitUART();
     PORT_vInitI2C();
     PORT_vInitSDCardPort();
     return;
 }
-/* START FUNCTION DESCRIPTION ******************************************************************************************
-PORT_vProcess                                        <PORT_CORE>
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*! fn        void PORT_vProcess(void)
 
-SYNTAX:         void PORT_vProcess(void)
+@brief   None
 
-DESCRIPTION :   Start here
+@param[in]  :   None
 
-PARAMETER1  :   Start here
+@return   None
 
-RETURN VALUE:   Start here
+@note        :   the process function shall be called inside infinite loop
 
-Note        :   the process function shall be called inside infinite loop
-
-END DESCRIPTION *******************************************************************************************************/
+-----------------------------------------------------------------------------------------------------------------------------*/
 void PORT_vProcess(void)
 {
     /* here we shall do the repeated tasks*/
@@ -175,20 +187,18 @@ void PORT_vProcess(void)
 *---------------------------------------------------------------------------------------------------------------
 *-----------------------------------------------------------------------------------------------------------------*
 */
-/* START FUNCTION DESCRIPTION ******************************************************************************************
-PORT_vInitGeneralIOPort                                        <PORT_CORE>
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*! fn        void PORT_vInitGeneralIOPort(void)
 
-SYNTAX:         void PORT_vInitGeneralIOPort(void)
+@brief   None
 
-DESCRIPTION :   Start here
+@param[in]  :   None
 
-PARAMETER1  :   Start here
+@return   None
 
-RETURN VALUE:   Start here
+@note        :
 
-Note        :
-
-END DESCRIPTION *******************************************************************************************************/
+-----------------------------------------------------------------------------------------------------------------------------*/
 static void PORT_vInitGeneralIOPort(void)
 {
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
@@ -198,39 +208,36 @@ static void PORT_vInitGeneralIOPort(void)
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
 }
-/* START FUNCTION DESCRIPTION ******************************************************************************************
-PORT_vInitGPIO                                        <PORT_CORE>
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*! fn        void PORT_vInitGPIO(void)
 
-SYNTAX:         void PORT_vInitGPIO(void)
+@brief   None
 
-DESCRIPTION :   Start here
+@param[in]  :   None
 
-PARAMETER1  :   Start here
+@return   None
 
-RETURN VALUE:   Start here
+@note        :
 
-Note        :
-
-END DESCRIPTION *******************************************************************************************************/
+-----------------------------------------------------------------------------------------------------------------------------*/
 static void PORT_vInitGPIO(void)
 {
     MAP_GPIOPinTypeGPIOInput(GPIO_PORTA_BASE, GPIO_PIN_3);    /* Set PA3 as I/P, Touch Input */
     MAP_GPIOPadConfigSet(GPIO_PORTA_BASE, GPIO_PIN_3, GPIO_STRENGTH_4MA, GPIO_PIN_TYPE_STD_WPU);
 }
-/* START FUNCTION DESCRIPTION ******************************************************************************************
-PORT_vInitGPIO                                        <PORT_CORE>
+/*-----------------------------------------------------------------------------------------------------------------------*/
 
-SYNTAX:         void PORT_vInitI2C(void)
+/*! fn        void PORT_vInitI2C(void)
 
-DESCRIPTION :   Start here
+@brief   None
 
-PARAMETER1  :   Start here
+@param[in]  :   None
 
-RETURN VALUE:   Start here
+@return   None
 
-Note        :
+@note        :
 
-END DESCRIPTION *******************************************************************************************************/
+-----------------------------------------------------------------------------------------------------------------------------*/
 static void PORT_vInitI2C(void)
 {
     MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C1); /* Enable I2C1 Peripheral Clocks */
@@ -240,20 +247,45 @@ static void PORT_vInitI2C(void)
     MAP_GPIOPinTypeI2C(GPIO_PORTA_BASE, GPIO_PIN_7);    /*I2C1 SDA*/
     I2C_init();
 }
-/* START FUNCTION DESCRIPTION ******************************************************************************************
-PORT_vInitSDCardPort                                        <PORT_CORE>
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*! fn        void PORT_vInitUART(void)
 
-SYNTAX:         void PORT_vInitSDCardPort()
+@brief   None
 
-DESCRIPTION :   Start here
+@param[in]  :   None
 
-PARAMETER1  :   Start here
+@return   None
 
-RETURN VALUE:   Start here
+@note        :
 
-Note        :
+-----------------------------------------------------------------------------------------------------------------------------*/
+static void PORT_vInitUART(void)
+{
+    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+    MAP_SysCtlPeripheralEnable(SYSCTL_PERIPH_UART1);
+    MAP_GPIOPinConfigure(GPIO_PA0_U0RX);
+    MAP_GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0);
+    MAP_GPIOPinConfigure(GPIO_PA1_U0TX);
+    MAP_GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1);
+    MAP_GPIOPinConfigure(GPIO_PB0_U1RX);
+    MAP_GPIOPinTypeUART(GPIO_PORTB_BASE, GPIO_PIN_0);
+    MAP_GPIOPinConfigure(GPIO_PB1_U1TX);
+    MAP_GPIOPinTypeUART(GPIO_PORTB_BASE, GPIO_PIN_1);
+    UARTStdioConfig(0U, 115200U, PORT_u32ProcessorFrequency);
+    UART_init();
+}
+/*-----------------------------------------------------------------------------------------------------------------------*/
+/*! fn        void PORT_vInitSDCardPort()
 
-END DESCRIPTION *******************************************************************************************************/
+@brief   None
+
+@param[in]  :   None
+
+@return   None
+
+@note        :
+
+-----------------------------------------------------------------------------------------------------------------------------*/
 static void PORT_vInitSDCardPort(void)
 {
     /* Enable the peripherals used by the SD Card */
@@ -271,12 +303,3 @@ static void PORT_vInitSDCardPort(void)
 
     //SDSPI_init();
 }
-/*
-*-----------------------------------------------------------------------------------------------------------------*
-*                                                      MODULE END
-*-----------------------------------------------------------------------------------------------------------------*
-*/
-
-
-
-

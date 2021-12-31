@@ -6,27 +6,21 @@ SHELL = cmd.exe
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Main\ Library/BoardAL/Onboard/MPU/MPU_CORE.c \
-../Main\ Library/BoardAL/Onboard/MPU/MPU_OS.c 
+../Main\ Library/BoardAL/Onboard/MPU/MPU_MAIN.c 
 
 C_DEPS += \
-./Main\ Library/BoardAL/Onboard/MPU/MPU_CORE.d \
-./Main\ Library/BoardAL/Onboard/MPU/MPU_OS.d 
+./Main\ Library/BoardAL/Onboard/MPU/MPU_MAIN.d 
 
 OBJS += \
-./Main\ Library/BoardAL/Onboard/MPU/MPU_CORE.obj \
-./Main\ Library/BoardAL/Onboard/MPU/MPU_OS.obj 
+./Main\ Library/BoardAL/Onboard/MPU/MPU_MAIN.obj 
 
 OBJS__QUOTED += \
-"Main Library\BoardAL\Onboard\MPU\MPU_CORE.obj" \
-"Main Library\BoardAL\Onboard\MPU\MPU_OS.obj" 
+"Main Library\BoardAL\Onboard\MPU\MPU_MAIN.obj" 
 
 C_DEPS__QUOTED += \
-"Main Library\BoardAL\Onboard\MPU\MPU_CORE.d" \
-"Main Library\BoardAL\Onboard\MPU\MPU_OS.d" 
+"Main Library\BoardAL\Onboard\MPU\MPU_MAIN.d" 
 
 C_SRCS__QUOTED += \
-"../Main Library/BoardAL/Onboard/MPU/MPU_CORE.c" \
-"../Main Library/BoardAL/Onboard/MPU/MPU_OS.c" 
+"../Main Library/BoardAL/Onboard/MPU/MPU_MAIN.c" 
 
 

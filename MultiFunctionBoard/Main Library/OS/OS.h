@@ -81,18 +81,7 @@ typedef struct
 }strOSTaskInformationType;
 /*
 *-----------------------------------------------------------------------------------------------------------------*
-*---------------------------------------------------------------------------------------------------------------
-*                                           G L O B A L   V A R I A B L E S
-*---------------------------------------------------------------------------------------------------------------
-*-----------------------------------------------------------------------------------------------------------------*
-*/
-
-
-/*
-*-----------------------------------------------------------------------------------------------------------------*
-*---------------------------------------------------------------------------------------------------------------
 *                                                   E X T E R N A L S
-*---------------------------------------------------------------------------------------------------------------
 *-----------------------------------------------------------------------------------------------------------------*
 */
 
@@ -110,11 +99,6 @@ extern "C" {
 #endif
 
 /* Put the functions here */
-StdReturnType OS_srGetOSTaskInformation(OS_strTaskHandlerType     *pobjstrTaskHandlerType, \
-                                       strOSTaskInformationType  *pobjstrOSTaskInformationType);
-StdReturnType OS_srGetOSQueueInformation(OS_strQueueHandlerType   *pobjstrQueueHandlerType, \
-                                         strOSQueueInformationType *pobjstrOSQueueInformationType);
-void          OS_vTaskCreatehook(Task_Handle task);
 void          OS_vDelayMS(INT32U u32DelayInMiliSeconds);
 #ifdef __cplusplus
 }

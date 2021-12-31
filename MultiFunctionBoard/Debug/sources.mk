@@ -124,12 +124,12 @@ GEN_OPTS__QUOTED :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 . \
+Main\ Library/BoardAL/Communication/ESP8266 \
 Main\ Library/BoardAL/IO/IOHWAB \
 Main\ Library/BoardAL/IO/TOUCH \
 Main\ Library/BoardAL/Onboard/MPU \
-Main\ Library/Compiler \
+Main\ Library/Environment \
 Main\ Library/MCAL/IO/Port \
 Main\ Library/OS \
 Main\ Library/ServiceLayer/DEM \
-Main\ Library/Verbose \
 

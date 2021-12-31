@@ -57,6 +57,7 @@ typedef INT8U StdReturnType;
  */
 #define E_OK                           (StdReturnType)0x00
 #define E_NOT_OK                       (StdReturnType)0x01
+#define E_INVALID_TIMEOUT              (StdReturnType)0x02
 
 #define STD_HIGH        0x01
 #define STD_LOW         0x00
