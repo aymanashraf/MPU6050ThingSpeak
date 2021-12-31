@@ -5,3 +5,6 @@ IoT project that is based on TM4C123 MCU and TI-RTOS and uses code composer stud
 3) Posting data to Thingspeak IoT Cloud via ESP8266 module using AT Commands through TCP connection.
 4) Reading data from Thingspeak cloud using JSON parser library to extract data from HTTP GET response.
 
+Prerequisites 
+=============
+You must install TIRTOS version 2.16.01.14 to compile code successfully
